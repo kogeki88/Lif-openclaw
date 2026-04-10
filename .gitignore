@@ -41,7 +41,7 @@
 *.p12
 *.pfx
 *.crt
-*.cer
+*.ce
 *.secret
 *.token
 *.bak
@@ -98,3 +98,6 @@ workspace-shelter/.env.*
 workspace-vanilmirth/.openclaw/
 workspace-filir/.openclaw/
 workspace-amistr/.openclaw/
+
+# Strategy runtime state (generated at runtime, not source of truth).
+trading-stack/runtime/orchestrator_state.json

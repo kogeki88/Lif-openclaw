@@ -1,0 +1,4 @@
+{
+  "AUTO_RELOAD_SECONDS": 2,
+  "LOAD_STRATEGY": "alpha_governor"
+}

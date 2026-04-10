@@ -26,5 +26,92 @@ Alpha-Governor hard gates:
 - Execution policy: strictly non-discretionary; if any gate fails, execution remains dormant.
 
 Design rule:
-- Strategy behavior is hard-coded in `strategy/strategy.json` and `protocols/alpha-governor.mapping.json`.
-- Filir and Amistr must consume only validated artifacts and never override gates heuristically.
+- Strategy behavior is now injectable from `skills/*.py` via `runtime/BaseStrategy`.
+- Vanilmirth, Filir, and Amistr are strategy-agnostic consumers of injected logic.
+
+## Strategy-as-a-Skill Architecture
+
+### Current Investigation Findings
+- The previous system stored behavior as JSON contracts and handoff artifacts, but had no shared strategy interface or hot-swap runtime.
+- Agent role files existed (`workspace-vanilmirth`, `workspace-filir`, `workspace-amistr`) without executable strategy classes.
+- Refactor target: keep JSON artifacts as outputs/contracts, move logic source into pluggable strategy skills.
+
+### New Modular File Structure
+
+```text
+trading-stack/
+  skills/
+    __init__.py
+    alpha_governor.py
+    simple_scalp.py
+  runtime/
+    __init__.py
+    contracts.py
+    base_strategy.py
+    compatibility_checker.py
+    strategy_loader.py
+    agents.py
+    orchestrator.py
+    strategy_ctl.py
+    strategy_runtime.json
+  contracts/
+  handoff/
+  protocols/
+  strategy/
+```
+
+### BaseStrategy Contract (Mandatory Hooks)
+- `get_signal_logic()` -> Vanilmirth gate logic
+- `get_risk_filters()` -> Filir gate logic
+- `get_execution_rules()` -> Amistr gate logic
+
+Every skill class must inherit `runtime.base_strategy.BaseStrategy` and return typed runtime contracts.
+
+### Compatibility Checke
+- `runtime.compatibility_checker.check_strategy_compatibility()` validates:
+  - required strategy metadata
+  - return types for all mandatory hooks
+  - field constraints (risk %, UTC time format, non-discretionary execution mode)
+- Incompatible skills are blocked before they can go live.
+
+### Dynamic Strategy Loading (Lif Orchestration)
+- Runtime flag: `runtime/strategy_runtime.json` -> `LOAD_STRATEGY`.
+- Lif orchestration process (`runtime/orchestrator.py`) loads selected skill and injects contracts into:
+  - `VanilmirthAgent`
+  - `FilirAgent`
+  - `AmistrAgent`
+- Watch mode (`--watch`) polls config and hot-reloads strategy logic without service restart.
+
+## Hot-Swap Workflow
+
+From `/home/lifadmin/.openclaw`:
+
+1. List available skills:
+```bash
+python3 trading-stack/runtime/strategy_ctl.py list
+```
+
+2. Validate a new skill:
+```bash
+python3 trading-stack/runtime/strategy_ctl.py check alpha_governo
+```
+
+3. Hot-swap skill:
+```bash
+python3 trading-stack/runtime/strategy_ctl.py load simple_scalp
+```
+
+4. Run Lif orchestrator in watch mode (no restart needed for skill swaps):
+```bash
+python3 trading-stack/runtime/orchestrator.py --watch --interval 2
+```
+
+5. Check runtime status:
+```bash
+python3 trading-stack/runtime/strategy_ctl.py status
+```
+
+Result:
+- Skill swap updates logic gates in-place.
+- Agent engine stays constant.
+- New strategy behavior is live after compatibility pass and re-initialization.
