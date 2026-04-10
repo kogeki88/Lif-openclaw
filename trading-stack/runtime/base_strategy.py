@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
+from typing import Sequence
 
 from .contracts import ExecutionRules, RiskFilters, SignalLogic, StrategyBundle
 
@@ -10,6 +11,7 @@ class BaseStrategy(ABC):
     Universal strategy interface for Strategy-as-a-Skill architecture.
 
     Every skill must implement these mandatory hooks:
+    - get_assets()
     - get_signal_logic()
     - get_risk_filters()
     - get_execution_rules()
@@ -18,6 +20,10 @@ class BaseStrategy(ABC):
     strategy_name: str = ""
     strategy_id: str = ""
     strategy_version: str = ""
+
+    @abstractmethod
+    def get_assets(self) -> Sequence[str]:
+        """Return symbols to evaluate for this strategy (dynamic discovery hook)."""
 
     @abstractmethod
     def get_signal_logic(self) -> SignalLogic:

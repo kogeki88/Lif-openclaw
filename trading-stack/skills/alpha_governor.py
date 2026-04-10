@@ -9,6 +9,9 @@ class AlphaGovernorStrategy(BaseStrategy):
     strategy_id = "alpha-governor-protocol"
     strategy_version = "4.5.0"
 
+    def get_assets(self) -> tuple[str, ...]:
+        return ("XAUUSD", "GBPUSD", "EURUSD", "BTCUSD")
+
     def get_signal_logic(self) -> SignalLogic:
         return SignalLogic(
             trigger="M15_CAMARILLA_R3_S3_BREAKOUT",

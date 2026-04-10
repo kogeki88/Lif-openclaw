@@ -2,6 +2,13 @@
 
 from .base_strategy import BaseStrategy
 from .contracts import ExecutionRules, RiskFilters, SignalLogic, StrategyBundle
+from .standard_backtester import (
+    BacktestReport,
+    CSVDirectoryDataProvider,
+    Candle,
+    InMemoryDataProvider,
+    StandardBacktester,
+)
 
 __all__ = [
     "BaseStrategy",
@@ -9,4 +16,9 @@ __all__ = [
     "RiskFilters",
     "ExecutionRules",
     "StrategyBundle",
+    "Candle",
+    "InMemoryDataProvider",
+    "CSVDirectoryDataProvider",
+    "StandardBacktester",
+    "BacktestReport",
 ]

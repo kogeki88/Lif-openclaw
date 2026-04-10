@@ -9,6 +9,9 @@ class SimpleScalpStrategy(BaseStrategy):
     strategy_id = "simple-scalp"
     strategy_version = "1.0.0"
 
+    def get_assets(self) -> tuple[str, ...]:
+        return ("XAUUSD", "EURUSD")
+
     def get_signal_logic(self) -> SignalLogic:
         return SignalLogic(
             trigger="EMA_PULLBACK_CONTINUATION",

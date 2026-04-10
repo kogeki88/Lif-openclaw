@@ -3,7 +3,7 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
-from typing import List
+from typing import List, Sequence
 
 from .base_strategy import BaseStrategy
 from .contracts import ExecutionRules, RiskFilters, SignalLogic
@@ -13,10 +13,10 @@ _UTC_HHMM_RE = re.compile(r"^(?:[01]\d|2[0-3]):[0-5]\d$")
 
 @dataclass
 class CompatibilityReport:
-    strategy_name: st
-    strategy_id: st
-    strategy_version: st
-    checked_at_utc: st
+    strategy_name: str
+    strategy_id: str
+    strategy_version: str
+    checked_at_utc: str
     valid: bool
     errors: List[str] = field(default_factory=list)
     warnings: List[str] = field(default_factory=list)
@@ -72,6 +72,19 @@ def _validate_execution_rules(execution: ExecutionRules, errors: List[str]) -> N
         errors.append("ExecutionRules.release_rule is required.")
 
 
+def _validate_assets(assets: Sequence[str], errors: List[str], warnings: List[str]) -> None:
+    if not assets:
+        errors.append("get_assets() must return at least one symbol.")
+        return
+
+    for asset in assets:
+        if not isinstance(asset, str) or not asset.strip():
+            errors.append("All symbols from get_assets() must be non-empty strings.")
+            continue
+        if asset != asset.upper():
+            warnings.append(f"Asset '{asset}' is not uppercase; expected canonical symbol format.")
+
+
 def check_strategy_compatibility(strategy: BaseStrategy) -> CompatibilityReport:
     errors: List[str] = []
     warnings: List[str] = []
@@ -83,9 +96,15 @@ def check_strategy_compatibility(strategy: BaseStrategy) -> CompatibilityReport:
     if not strategy.strategy_name:
         warnings.append("strategy_name is empty; class name fallback will be used.")
 
+    assets = strategy.get_assets()
     signal_logic = strategy.get_signal_logic()
     risk_filters = strategy.get_risk_filters()
     execution_rules = strategy.get_execution_rules()
+
+    if not isinstance(assets, Sequence) or isinstance(assets, (str, bytes)):
+        errors.append("get_assets() must return a sequence of symbols.")
+    else:
+        _validate_assets(assets, errors, warnings)
 
     if not isinstance(signal_logic, SignalLogic):
         errors.append("get_signal_logic() must return SignalLogic.")

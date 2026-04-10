@@ -9,7 +9,7 @@ from typing import Any, Dict, Mapping, Sequence
 class SignalLogic:
     """What Vanilmirth should evaluate for signal viability."""
 
-    trigger: st
+    trigger: str
     timeframes: Sequence[str]
     required_checks: Sequence[str]
     parameters: Mapping[str, Any] = field(default_factory=dict)
@@ -41,14 +41,14 @@ class RiskFilters:
 class ExecutionRules:
     """What Amistr must apply when executing and managing trades."""
 
-    execution_mode: st
+    execution_mode: str
     execute_only_when_all_layers_pass: bool
     dormant_when_misaligned: bool
     breakeven_trigger_r: float
-    sunset_rule_utc: st
-    hard_flatten_utc: st
+    sunset_rule_utc: str
+    hard_flatten_utc: str
     max_concurrent_positions: int
-    release_rule: st
+    release_rule: str
 
     def to_dict(self) -> Dict[str, Any]:
         return dict(asdict(self))
@@ -58,9 +58,9 @@ class ExecutionRules:
 class StrategyBundle:
     """Resolved strategy payload consumed by all three execution agents."""
 
-    strategy_name: st
-    strategy_id: st
-    strategy_version: st
+    strategy_name: str
+    strategy_id: str
+    strategy_version: str
     signal_logic: SignalLogic
     risk_filters: RiskFilters
     execution_rules: ExecutionRules
