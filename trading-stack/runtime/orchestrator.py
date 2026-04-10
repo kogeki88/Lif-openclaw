@@ -2,22 +2,38 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 import time
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, Optional
 
-from .agents import AgentFleet
-from .compatibility_checker import CompatibilityReport, check_strategy_compatibility
-from .contracts import StrategyBundle
-from .strategy_loader import (
-    RUNTIME_CONFIG_PATH,
-    StrategyLoadError,
-    load_strategy,
-    read_runtime_config,
-    set_loaded_strategy,
-)
+if __package__ in (None, ""):
+    ROOT_DIR = Path(__file__).resolve().parents[1]
+    if str(ROOT_DIR) not in sys.path:
+        sys.path.insert(0, str(ROOT_DIR))
+    from runtime.agents import AgentFleet
+    from runtime.compatibility_checker import CompatibilityReport, check_strategy_compatibility
+    from runtime.contracts import StrategyBundle
+    from runtime.strategy_loader import (
+        RUNTIME_CONFIG_PATH,
+        StrategyLoadError,
+        load_strategy,
+        read_runtime_config,
+        set_loaded_strategy,
+    )
+else:
+    from .agents import AgentFleet
+    from .compatibility_checker import CompatibilityReport, check_strategy_compatibility
+    from .contracts import StrategyBundle
+    from .strategy_loader import (
+        RUNTIME_CONFIG_PATH,
+        StrategyLoadError,
+        load_strategy,
+        read_runtime_config,
+        set_loaded_strategy,
+    )
 
 STATUS_PATH = Path(__file__).resolve().with_name("orchestrator_state.json")
 
