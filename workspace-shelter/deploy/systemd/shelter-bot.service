@@ -1,0 +1,18 @@
+[Unit]
+Description=Shelter Discord Agent
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=lifadmin
+WorkingDirectory=/home/lifadmin/.openclaw/workspace-shelter
+EnvironmentFile=/home/lifadmin/.openclaw/workspace-shelter/.env
+ExecStart=/usr/bin/python3 /home/lifadmin/.openclaw/workspace-shelter/runtime/bot.py
+Restart=always
+RestartSec=3
+StandardOutput=append:/home/lifadmin/.openclaw/workspace-shelter/logs/shelter.log
+StandardError=append:/home/lifadmin/.openclaw/workspace-shelter/logs/shelter.log
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EntryAlert",
+  "type": "object",
+  "required": [
+    "signalId",
+    "timestampUtc",
+    "strategyId",
+    "strategyVersion",
+    "symbol",
+    "timeframe",
+    "direction",
+    "entryPrice",
+    "confluence",
+    "riskTierAuthorized",
+    "qualityScore",
+    "executionEligible",
+    "dormantReasonCodes",
+    "expiryUtc"
+  ],
+  "properties": {
+    "signalId": { "type": "string" },
+    "timestampUtc": { "type": "string" },
+    "strategyId": { "type": "string" },
+    "strategyVersion": { "type": "string" },
+    "symbol": { "type": "string" },
+    "timeframe": { "type": "string" },
+    "direction": { "type": "string", "enum": ["long", "short"] },
+    "entryType": { "type": ["string", "null"] },
+    "entryPrice": { "type": "number" },
+    "atrValue": { "type": ["number", "null"] },
+    "confluence": {
+      "type": "object",
+      "required": [
+        "camarillaBreakout",
+        "emaDirectional",
+        "volumeZScore",
+        "atrRising",
+        "tdiSlope",
+        "h1Adx",
+        "allSignalFiltersPass",
+        "allMomentumFiltersPass"
+      ],
+      "properties": {
+        "camarillaBreakout": {
+          "type": "object",
+          "required": ["level", "isBreakout", "closeConfirmed"],
+          "properties": {
+            "level": { "type": "string", "enum": ["R3", "S3"] },
+            "isBreakout": { "type": "boolean" },
+            "closeConfirmed": { "type": "boolean" }
+          }
+        },
+        "emaDirectional": {
+          "type": "object",
+          "required": ["h4Aligned", "h1Aligned", "fastEma", "slowEma"],
+          "properties": {
+            "h4Aligned": { "type": "boolean" },
+            "h1Aligned": { "type": "boolean" },
+            "fastEma": { "type": "number" },
+            "slowEma": { "type": "number" }
+          }
+        },
+        "volumeZScore": {
+          "type": "object",
+          "required": ["value", "minRequired", "pass"],
+          "properties": {
+            "value": { "type": "number" },
+            "minRequired": { "type": "number" },
+            "pass": { "type": "boolean" }
+          }
+        },
+        "atrRising": {
+          "type": "object",
+          "required": ["currentAtr", "previousAtr", "isRising", "pass"],
+          "properties": {
+            "currentAtr": { "type": "number" },
+            "previousAtr": { "type": "number" },
+            "isRising": { "type": "boolean" },
+            "pass": { "type": "boolean" }
+          }
+        },
+        "tdiSlope": {
+          "type": "object",
+          "required": ["degrees", "minRequired", "pass"],
+          "properties": {
+            "degrees": { "type": "number" },
+            "minRequired": { "type": "number" },
+            "pass": { "type": "boolean" }
+          }
+        },
+        "h1Adx": {
+          "type": "object",
+          "required": ["value", "minRequired", "pass"],
+          "properties": {
+            "value": { "type": "number" },
+            "minRequired": { "type": "number" },
+            "pass": { "type": "boolean" }
+          }
+        },
+        "allSignalFiltersPass": { "type": "boolean" },
+        "allMomentumFiltersPass": { "type": "boolean" }
+      }
+    },
+    "riskTierAuthorized": {
+      "type": "string",
+      "enum": ["tier0", "tier1", "tier2"]
+    },
+    "qualityScore": { "type": "number" },
+    "executionEligible": { "type": "boolean" },
+    "dormantReasonCodes": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "expiryUtc": { "type": "string" }
+  }
+}

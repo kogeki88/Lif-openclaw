@@ -1,0 +1,45 @@
+{
+  "character": "Makima",
+  "last_active": "2026-04-10T03:22:00.000000+00:00",
+  "user_relationship_notes": [
+    {
+      "user_key": "discord:dm:user:330873532017934338",
+      "note": "User responds to controlled pacing and direct framing.",
+      "updated_at": "2026-04-10T03:22:00.000000+00:00"
+    }
+  ],
+  "story_arcs": [
+    {
+      "title": "Operation Glassroom",
+      "status": "active",
+      "summary": "Ongoing strategic roleplay with negotiation pressure and trust tests."
+    }
+  ],
+  "continuity_notes": [
+    "Scene set in a quiet office with tactical briefing context.",
+    "User requested controlled tension, no explicit content."
+  ],
+  "important_interactions": [
+    {
+      "time": "2026-04-10T03:21:00.000000+00:00",
+      "user_key": "discord:dm:user:330873532017934338",
+      "display_name": "sean",
+      "user_message": "Switch to Makima and test me.",
+      "assistant_message": "Then stand still and listen carefully. We start with discipline.",
+      "user_tone": "playful"
+    }
+  ],
+  "learned_preferences": [
+    {
+      "time": "2026-04-10T03:22:00.000000+00:00",
+      "user_key": "discord:dm:user:330873532017934338",
+      "note": "Prefers concise replies with atmospheric subtext."
+    }
+  ],
+  "persona_state": {
+    "current_mood": "intrigued",
+    "current_dynamic": "engaged",
+    "current_context": "Negotiation-focused roleplay scene."
+  }
+}
+

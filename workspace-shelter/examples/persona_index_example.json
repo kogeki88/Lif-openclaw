@@ -1,0 +1,21 @@
+{
+  "personas": [
+    {
+      "name": "Makima",
+      "slug": "makima",
+      "source": "Chainsaw Man",
+      "created_at": "2026-04-10T03:10:00.000000+00:00",
+      "last_used": "2026-04-10T03:22:00.000000+00:00",
+      "type": "canon"
+    },
+    {
+      "name": "Nocturne Strategist",
+      "slug": "nocturne-strategist",
+      "source": "Original Character",
+      "created_at": "2026-04-10T03:24:00.000000+00:00",
+      "last_used": "",
+      "type": "original"
+    }
+  ]
+}
+

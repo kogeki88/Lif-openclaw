@@ -1,0 +1,29 @@
+{
+  "strategyId": "alpha-governor-protocol",
+  "strategyVersion": "4.5.0",
+  "executionMode": "non_discretionary",
+  "status": "pending",
+  "tier1RiskPct": 1.0,
+  "tier2RiskPct": 1.875,
+  "momentumTier2Requirements": {
+    "minTdiSlopeDeg": 30.0,
+    "minH1Adx": 25
+  },
+  "dynamicThrottle": {
+    "triggerConsecutiveLosses": 3,
+    "throttledRiskPct": 0.5,
+    "enabled": true
+  },
+  "globalHeatCapPct": 4.5,
+  "usdCorrelationCapPct": 3.0,
+  "maxDailyDrawdownPct": 3.0,
+  "maxTotalDrawdownPct": 8.0,
+  "atrStopMultiplier": 1.5,
+  "takeProfitR": 2.0,
+  "breakevenTriggerR": 0.6,
+  "sunsetRuleUtc": "18:00",
+  "hardFlattenUtc": "19:55",
+  "dormantWhenMisaligned": true,
+  "maxConcurrentPositions": 3,
+  "validUntilUtc": null
+}

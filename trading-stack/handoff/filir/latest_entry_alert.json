@@ -1,0 +1,55 @@
+{
+  "signalId": null,
+  "timestampUtc": null,
+  "strategyId": "alpha-governor-protocol",
+  "strategyVersion": "4.5.0",
+  "symbol": null,
+  "timeframe": "M15",
+  "direction": null,
+  "entryType": null,
+  "entryPrice": null,
+  "atrValue": null,
+  "confluence": {
+    "camarillaBreakout": {
+      "level": null,
+      "isBreakout": false,
+      "closeConfirmed": false
+    },
+    "emaDirectional": {
+      "h4Aligned": false,
+      "h1Aligned": false,
+      "fastEma": null,
+      "slowEma": null
+    },
+    "volumeZScore": {
+      "value": null,
+      "minRequired": 2.0,
+      "pass": false
+    },
+    "atrRising": {
+      "currentAtr": null,
+      "previousAtr": null,
+      "isRising": false,
+      "pass": false
+    },
+    "tdiSlope": {
+      "degrees": null,
+      "minRequired": 30.0,
+      "pass": false
+    },
+    "h1Adx": {
+      "value": null,
+      "minRequired": 25,
+      "pass": false
+    },
+    "allSignalFiltersPass": false,
+    "allMomentumFiltersPass": false
+  },
+  "riskTierAuthorized": "tier0",
+  "qualityScore": null,
+  "executionEligible": false,
+  "dormantReasonCodes": [
+    "no_active_signal"
+  ],
+  "expiryUtc": null
+}

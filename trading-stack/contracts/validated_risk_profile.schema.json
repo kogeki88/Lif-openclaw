@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ValidatedRiskProfile",
+  "type": "object",
+  "required": [
+    "strategyId",
+    "strategyVersion",
+    "executionMode",
+    "status",
+    "tier1RiskPct",
+    "tier2RiskPct",
+    "momentumTier2Requirements",
+    "dynamicThrottle",
+    "globalHeatCapPct",
+    "usdCorrelationCapPct",
+    "maxDailyDrawdownPct",
+    "maxTotalDrawdownPct",
+    "atrStopMultiplier",
+    "takeProfitR",
+    "breakevenTriggerR",
+    "sunsetRuleUtc",
+    "hardFlattenUtc",
+    "dormantWhenMisaligned",
+    "maxConcurrentPositions",
+    "validUntilUtc"
+  ],
+  "properties": {
+    "strategyId": { "type": "string" },
+    "strategyVersion": { "type": "string" },
+    "executionMode": { "type": "string", "enum": ["non_discretionary"] },
+    "status": { "type": "string", "enum": ["pending", "approved", "rejected"] },
+    "tier1RiskPct": { "type": "number" },
+    "tier2RiskPct": { "type": "number" },
+    "momentumTier2Requirements": {
+      "type": "object",
+      "required": ["minTdiSlopeDeg", "minH1Adx"],
+      "properties": {
+        "minTdiSlopeDeg": { "type": "number" },
+        "minH1Adx": { "type": "number" }
+      }
+    },
+    "dynamicThrottle": {
+      "type": "object",
+      "required": ["triggerConsecutiveLosses", "throttledRiskPct", "enabled"],
+      "properties": {
+        "triggerConsecutiveLosses": { "type": "integer" },
+        "throttledRiskPct": { "type": "number" },
+        "enabled": { "type": "boolean" }
+      }
+    },
+    "globalHeatCapPct": { "type": "number" },
+    "usdCorrelationCapPct": { "type": "number" },
+    "maxDailyDrawdownPct": { "type": "number" },
+    "maxTotalDrawdownPct": { "type": "number" },
+    "atrStopMultiplier": { "type": "number" },
+    "takeProfitR": { "type": "number" },
+    "breakevenTriggerR": { "type": "number" },
+    "sunsetRuleUtc": { "type": "string" },
+    "hardFlattenUtc": { "type": "string" },
+    "dormantWhenMisaligned": { "type": "boolean" },
+    "maxConcurrentPositions": { "type": "integer" },
+    "validUntilUtc": { "type": ["string", "null"] }
+  }
+}

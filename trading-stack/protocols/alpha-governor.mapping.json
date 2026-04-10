@@ -1,0 +1,67 @@
+{
+  "protocolId": "alpha-governor-protocol",
+  "version": "4.5.0",
+  "executionMode": "non_discretionary",
+  "moduleChain": [
+    {
+      "module": "vanilmirth",
+      "responsibility": "validate_strategy_and_publish_risk_profile",
+      "output": "handoff/vanilmirth/validated_risk_profile.json"
+    },
+    {
+      "module": "filir",
+      "responsibility": "emit_entry_alerts_when_signal_and_momentum_gates_pass",
+      "output": "handoff/filir/latest_entry_alert.json"
+    },
+    {
+      "module": "amistr",
+      "responsibility": "execute_only_if_signal_momentum_risk_management_all_pass",
+      "output": "handoff/amistr/execution_log.jsonl"
+    }
+  ],
+  "signalLayer": {
+    "trigger": "M15_CAMARILLA_R3_S3_BREAKOUT",
+    "requiredChecks": [
+      "m15_camarilla_breakout_confirmed",
+      "h4_ema20_ema50_directional_alignment",
+      "h1_ema20_ema50_directional_alignment",
+      "volume_zscore_gt_2_0",
+      "atr_is_rising"
+    ]
+  },
+  "momentumLayer": {
+    "tier2AuthorizationChecks": [
+      "tdi_green_slope_deg_gt_30",
+      "h1_adx_gt_25"
+    ],
+    "riskTiers": {
+      "tier1RiskPct": 1.0,
+      "tier2RiskPct": 1.875
+    }
+  },
+  "riskLayer": {
+    "dynamicThrottle": {
+      "triggerConsecutiveLosses": 3,
+      "throttledRiskPct": 0.5
+    },
+    "globalHeatCapPct": 4.5,
+    "usdCorrelationCapPct": 3.0
+  },
+  "managementLayer": {
+    "breakevenTriggerR": 0.6,
+    "sunsetRuleUtc": "18:00",
+    "sunsetAction": "lock_micro_profits",
+    "hardFlattenUtc": "19:55",
+    "hardFlattenAction": "close_all_positions"
+  },
+  "executionDormancy": {
+    "dormantWhenAnyGateFails": true,
+    "dormantReasonCodes": [
+      "signal_gate_failed",
+      "momentum_gate_failed",
+      "risk_guard_failed",
+      "management_window_block",
+      "risk_profile_not_approved"
+    ]
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "strategyId": "alpha-governor-protocol",
+  "strategyVersion": "4.5.0",
+  "executionMode": "non_discretionary",
+  "forwardTesting": {
+    "enabled": true,
+    "environment": "paper",
+    "executeOnlyWhenAllLayersPass": true
+  },
+  "symbols": [
+    "XAUUSD",
+    "EURUSD",
+    "GBPUSD",
+    "BTCUSD"
+  ],
+  "timeframes": {
+    "signal": "M15",
+    "directional": [
+      "H1",
+      "H4"
+    ],
+    "momentum": "H1"
+  },
+  "signalLayer": {
+    "trigger": {
+      "type": "camarilla_breakout",
+      "longLevel": "R3",
+      "shortLevel": "S3",
+      "closeConfirmationBars": 1
+    },
+    "directionalFilter": {
+      "ema": {
+        "fast": 20,
+        "slow": 50
+      },
+      "requireH4Alignment": true,
+      "requireH1Alignment": true
+    },
+    "volumeGate": {
+      "metric": "z_score",
+      "lookbackBars": 50,
+      "minZScore": 2.0
+    },
+    "atrGate": {
+      "period": 14,
+      "requireRising": true,
+      "risingLookbackBars": 3
+    }
+  },
+  "momentumLayer": {
+    "tdiSlopeGate": {
+      "indicator": "TDI_GREEN",
+      "minDegrees": 30.0
+    },
+    "h1AdxGate": {
+      "period": 14,
+      "min": 25
+    },
+    "riskTiers": {
+      "tier1": {
+        "riskPct": 1.0,
+        "requiresMomentumGates": false
+      },
+      "tier2": {
+        "riskPct": 1.875,
+        "requiresMomentumGates": true
+      }
+    }
+  },
+  "riskLayer": {
+    "dynamicThrottle": {
+      "triggerConsecutiveLosses": 3,
+      "throttledRiskPct": 0.5,
+      "releaseRule": "after_first_net_positive_closed_trade"
+    },
+    "globalHeatCapPct": 4.5,
+    "correlationCap": {
+      "scope": "USD",
+      "maxNetExposurePct": 3.0
+    }
+  },
+  "managementLayer": {
+    "breakeven": {
+      "triggerR": 0.6,
+      "stopPlacement": "entry_plus_fees"
+    },
+    "sunsetRule": {
+      "atUtc": "18:00",
+      "action": "lock_micro_profits",
+      "microProfitMinR": 0.15
+    },
+    "hardFlatten": {
+      "atUtc": "19:55",
+      "action": "close_all_positions_and_cancel_orders"
+    }
+  },
+  "validation": {
+    "monteCarloRuns": 1000,
+    "minWinRate": 0.45,
+    "minProfitFactor": 1.4,
+    "maxDrawdownPct": 12.0
+  },
+  "executionPolicy": {
+    "allowDiscretionaryOverride": false,
+    "dormantWhenMisaligned": true,
+    "ifAnyFilterFails": "execution_module_dormant",
+    "requiredPassSequence": [
+      "signal_layer",
+      "momentum_layer",
+      "risk_layer",
+      "management_layer"
+    ]
+  }
+}

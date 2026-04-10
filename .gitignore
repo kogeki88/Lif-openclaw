@@ -1,0 +1,100 @@
+# =========================================================
+# OpenClaw VPS Safe Versioning Ignore Policy
+# =========================================================
+# Strategy: whitelist project code/docs, then re-block secrets/runtime data.
+
+# Ignore everything by default.
+*
+
+# Keep core versioning files.
+!.gitignore
+!.gitattributes
+!README.VERSIONING.md
+!scripts/
+!scripts/**
+!.githooks/
+!.githooks/**
+
+# Keep project sources we want versioned.
+!trading-stack/
+!trading-stack/**
+!workspace/
+!workspace/**
+!workspace-shelter/
+!workspace-shelter/**
+!workspace-vanilmirth/
+!workspace-vanilmirth/**
+!workspace-filir/
+!workspace-filir/**
+!workspace-amistr/
+!workspace-amistr/**
+
+# ---------------------------------------------------------
+# Hard secret/runtime exclusions (never commit)
+# ---------------------------------------------------------
+.env
+*.env
+**/.env
+**/.env.*
+*.key
+*.pem
+*.p12
+*.pfx
+*.crt
+*.cer
+*.secret
+*.token
+*.bak
+*.sqlite
+*.sqlite-*
+*.log
+*.jsonl
+*credentials*
+
+# OpenClaw runtime sensitive/state files.
+openclaw.json
+openclaw.json.*
+exec-approvals.json
+identity/
+credentials/
+devices/
+memory/
+flows/
+tasks/
+logs/
+cache/
+canvas/
+qqbot/
+media/
+delivery-queue/
+agents/
+backups/
+
+# Nested runtime folders inside workspaces.
+**/.openclaw/
+**/.venv/
+**/__pycache__/
+**/.pytest_cache/
+**/.mypy_cache/
+**/node_modules/
+
+# Embedded/accidental nested git repos (we track from root repo only).
+workspace/.git/
+workspace-shelter/.git/
+**/.git.embedded-disabled*
+
+# Workspace-specific sensitive artifacts.
+workspace/lifadmin_key
+workspace/vps_access_credentials.json
+workspace/openclaw*.json
+workspace/probe-*.js
+workspace/memory/
+
+workspace-shelter/memory/
+workspace-shelter/logs/
+workspace-shelter/.env
+workspace-shelter/.env.*
+
+workspace-vanilmirth/.openclaw/
+workspace-filir/.openclaw/
+workspace-amistr/.openclaw/

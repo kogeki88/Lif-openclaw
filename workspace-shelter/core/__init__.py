@@ -1,0 +1,2 @@
+# Shelter core models package.
+

@@ -1,0 +1,31 @@
+{
+  "user_key": "discord:dm:user:330873532017934338",
+  "mode": "immersive",
+  "persona": "velvet",
+  "mood": "intrigued",
+  "relationship_summary": "Trust is rising. User responds well to playful implication and calm emotional mirroring.",
+  "last_scene": "Rain at the window, low light, close conversational distance.",
+  "recent_moments": [
+    {
+      "time": "2026-04-09T22:44:51.010Z",
+      "tone": "playful",
+      "scene": "Late-night banter with teasing pauses.",
+      "beat": "Shelter led the pacing and user followed."
+    },
+    {
+      "time": "2026-04-09T22:48:02.334Z",
+      "tone": "vulnerable",
+      "scene": "User asked for reassurance and emotional steadiness.",
+      "beat": "Shelter softened tone and reduced tension."
+    }
+  ],
+  "active_storylines": [
+    {
+      "storyline_id": "quiet-gravity",
+      "title": "Quiet Gravity",
+      "summary": "A slow-burn conversation arc centered on trust, curiosity, and emotional pull.",
+      "status": "active",
+      "updated_at": "2026-04-09T22:48:02.334Z"
+    }
+  ]
+}

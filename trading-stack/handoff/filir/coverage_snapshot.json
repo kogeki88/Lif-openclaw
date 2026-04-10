@@ -1,0 +1,12 @@
+{
+  "timestampUtc": null,
+  "strategyId": "phase4-modular-stack",
+  "symbols": [],
+  "timeframes": [
+    "H1",
+    "H4",
+    "D1"
+  ],
+  "lastScanUtcBySymbol": {},
+  "coveragePct": 0
+}

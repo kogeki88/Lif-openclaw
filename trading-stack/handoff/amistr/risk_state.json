@@ -1,0 +1,19 @@
+{
+  "timestampUtc": null,
+  "strategyId": "alpha-governor-protocol",
+  "strategyVersion": "4.5.0",
+  "dailyDrawdownPct": 0,
+  "totalDrawdownPct": 0,
+  "consecutiveLosses": 0,
+  "throttleActive": false,
+  "currentRiskPerTradePct": 1.0,
+  "openRiskPct": 0,
+  "globalHeatCapPct": 4.5,
+  "netUsdExposurePct": 0,
+  "usdCorrelationCapPct": 3.0,
+  "openPositions": 0,
+  "sunsetLocked": false,
+  "hardFlattenDueUtc": "19:55",
+  "executionAllowed": false,
+  "blockReason": "awaiting_approved_risk_profile"
+}

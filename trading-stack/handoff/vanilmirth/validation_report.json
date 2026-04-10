@@ -1,0 +1,14 @@
+{
+  "timestampUtc": null,
+  "strategyId": "alpha-governor-protocol",
+  "strategyVersion": "4.5.0",
+  "sampleSize": 0,
+  "monteCarloRuns": 1000,
+  "winRate": null,
+  "lossRate": null,
+  "profitFactor": null,
+  "maxDrawdownPct": null,
+  "expectancyR": null,
+  "verdict": "pending",
+  "reasons": []
+}
